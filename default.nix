@@ -37,11 +37,11 @@
 assert isNull stylish-haskell || isDerivation stylish-haskell;
 assert isNull source-cleaner || isFunction source-cleaner;
 
-let 
+let
   # nixpkgs master as of 2020-03-18.
   nixpkgs = builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/52ee55fe0f760368cb492bb3922f15ae3365005a.tar.gz";
-    sha256 = "15fwszhn6078sbrb8qk83g8afvh4qnmvff0qbkbvq3cm1fxni2w1";
+    sha256 = "04153gqpwh3y3wibdm6rc16kllxci4hwazcp4axwb6p6l341gjgl";
   };
 
   # The real stylish-haskell binary for us to use.
