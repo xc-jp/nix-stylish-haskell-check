@@ -32,17 +32,21 @@
 , # stylish-haskell derivation to use.  If this is null, we get the
   # stylish-haskell executable from a recent version of nixpkgs.
   stylish-haskell ? null
+, # Nixpkgs to use to get various helper functions.
+  nixpkgs ?
+    # nixpkgs master as of 2020-03-18.
+    let nixpkgs-src = builtins.fetchTarball {
+          url = "https://github.com/NixOS/nixpkgs/archive/52ee55fe0f760368cb492bb3922f15ae3365005a.tar.gz";
+          sha256 = "15hxjl60ax8h0ar8ls9vl3rpzp1ba58ay8jp47s1dxj202p7sjbn";
+        };
+    in import nixpkgs-src {}
+, lib ? nixpkgs.lib
 }:
 
-assert isNull stylish-haskell || isDerivation stylish-haskell;
-assert isNull source-cleaner || isFunction source-cleaner;
+assert isNull stylish-haskell || lib.isDerivation stylish-haskell;
+assert isNull source-cleaner || lib.isFunction source-cleaner;
 
 let
-  # nixpkgs master as of 2020-03-18.
-  nixpkgs = builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/52ee55fe0f760368cb492bb3922f15ae3365005a.tar.gz";
-    sha256 = "04153gqpwh3y3wibdm6rc16kllxci4hwazcp4axwb6p6l341gjgl";
-  };
 
   # The real stylish-haskell binary for us to use.
   stylish-haskell-real =
@@ -65,7 +69,7 @@ let
 
   inherit (nixpkgs) linkFarmFromDrvs runCommand;
 in
-{
+rec {
   # Run stylish-haskell for a single Haskell package.
   #
   # The derivation passed as an argument should contain
