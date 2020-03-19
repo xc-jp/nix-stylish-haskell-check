@@ -11,5 +11,9 @@ jobs:
     - name: Positive Tests
       run: nix-build test/default.nix
     - name: Negative Tests (expected failures)
-      run: nix-build test/negative-tests.nix
+      run: |
+          if nix-build test/negative-tests.nix ; then
+            # Make sure to fail if the negative tests actually succeed.
+            false
+          fi
 
