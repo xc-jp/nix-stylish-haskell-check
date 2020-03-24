@@ -1,0 +1,14 @@
+cabal-version:       >=1.10
+
+name:                example-haskell-proj
+version:             0.1.0.0
+-- license-file:        LICENSE
+author:              Dennis Gosnell
+maintainer:          cdep.illabout@gmail.com
+build-type:          Simple
+
+executable example-haskell-proj
+  main-is:             Main.hs
+  build-depends:       base >=4.12 && <4.13
+                     , conduit
+  default-language:    Haskell2010

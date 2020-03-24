@@ -1,0 +1,19 @@
+name: "Test"
+on:
+  pull_request:
+  push:
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v7
+    - name: Positive Tests
+      run: nix-build test/default.nix
+    - name: Negative Tests (expected failures)
+      run: |
+          if nix-build test/negative-tests.nix ; then
+            # Make sure to fail if the negative tests actually succeed.
+            false
+          fi
+
