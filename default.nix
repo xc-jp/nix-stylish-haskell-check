@@ -70,6 +70,10 @@ let
   inherit (nixpkgs) linkFarmFromDrvs runCommand;
 in
 rec {
+  # This is the nixpkgs we are using.  Normally this won't be used, but it is
+  # helpful for the tests in this repo.
+  inherit nixpkgs;
+
   # Run stylish-haskell for a single Haskell package.
   #
   # The derivation passed as an argument should contain
