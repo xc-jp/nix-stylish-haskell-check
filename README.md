@@ -54,3 +54,30 @@ in
 
 nix-stylish-haskell-check.stylish-haskell-check my-haskell-package
 ```
+
+## Errors
+
+When using `nix-stylish-haskell-check`, if your input Haskell source code does
+not fit the style enforced by `stylish-haskell`, you will get errors like the
+following:
+
+```console
+$ nix-build ./my-stylish-haskell-check-example.nix
+building '/nix/store/97sbsfpdax4ck2lllp4ln2y88f8j08fa-stylish-haskell-for-example-haskell-proj-bad.txt.drv'...
+stylish-haskell diff for example-haskell-proj-bad in /nix/store/jmq344mx8lfz0s7452m1q0b4bmsd35h5-example-haskell-proj-bad/Main.hs:
+    --- /nix/store/jmq344mx8lfz0s7452m1q0b4bmsd35h5-example-haskell-proj-bad/Main.hs    1970-01-01 00:00:01.000000000 +0000
+    +++ /build/stylish-haskell-res.hs   2020-03-24 05:28:29.271286895 +0000
+    @@ -2,7 +2,7 @@
+
+    -import Data.Conduit (Conduit   )
+    +import Data.Conduit (Conduit)
+
+     main :: IO ()
+     main = putStrLn "Hello, Haskell!"
+
+Error, found stylish-haskell problems for example-haskell-proj-bad.
+builder for '/nix/store/97sbsfpdax4ck2lllp4ln2y88f8j08fa-stylish-haskell-for-example-haskell-proj-bad.txt.drv' failed with exit code 1
+```
+
+If your input Haskell source code already meets the style enforced by
+`stylish-haskell`, the build will succeed as expected.
